@@ -1,8 +1,9 @@
 db.air_alliances.aggregate([
-  {"$unwind": {"path": "$airlines"}}, 
-  {"$lookup": {
+  { "$unwind": { "path": "$airlines" } },
+  {
+    "$lookup": {
       "from": "air_routes",
-      "let": {"airline": "$airlines"},
+      "let": { "airline": "$airlines" },
       "pipeline": [
         {
           "$match": {
@@ -19,10 +20,11 @@ db.air_alliances.aggregate([
           }
         }
       ],
-      "as": "flights"}
-  }, 
-  {"$unwind": {"path": "$flights"}}, 
-  {"$group": {"_id": "$name", "totalRotas": {"$sum": 1}}}, 
-  {"$sort": {"totalRotas": -1}},
-  {"$limit": 1}
+      "as": "flights"
+    }
+  },
+  { "$unwind": { "path": "$flights" } },
+  { "$group": { "_id": "$name", "totalRotas": { "$sum": 1 } } },
+  { "$sort": { "totalRotas": -1 } },
+  { "$limit": 1 }
 ]);
