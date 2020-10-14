@@ -1,5 +1,4 @@
 const time = 60 * 1000;
-
 db.trips.aggregate([
   {
     $match: {
